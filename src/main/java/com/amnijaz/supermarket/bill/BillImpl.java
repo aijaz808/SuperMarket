@@ -17,9 +17,12 @@ public class BillImpl implements Bill{
 
     private Offers offer=new OffersImpl();
 
+    /*
+      Customer input processed and directed forward to right method
+     */
 
     @Override
-    public Boolean processCartInput(String input) {
+    public void processCartInput(String input) {
         if(input.toLowerCase().startsWith("add")){
             processItemAddition(input);
         }
@@ -29,10 +32,16 @@ public class BillImpl implements Bill{
         else if (input.toLowerCase().startsWith("bill")) {
             calculateBill();
         }
+        else{
+            System.out.println("Invalid Command entered!");
+        }
 
-        return Boolean.TRUE;
+        return ;
     }
 
+    /*
+     *  Bill is processed i.e. subtotal, total and discount in case customer demands bill
+     */
     private void calculateBill() {
 
         Collection<String> cart= ClientImpl.CART_MODEL_MAP.keySet();
@@ -54,6 +63,11 @@ public class BillImpl implements Bill{
 
     }
 
+    /*
+    * In case an offer is applied on item it checks whether there is a previous offer  applied or not
+    * if applied the current offer will be applied from the last item discounted
+    */
+
     private void processItemOffer(String input) {
 
         String[] cartInput = input.split(SPACE_DELIMITER);
@@ -65,7 +79,7 @@ public class BillImpl implements Bill{
                         CartModel cartModel = ClientImpl.CART_MODEL_MAP.get(cartInput[2]);
 
                         if (cartModel.getOffer() != null && cartModel.getOffer().equalsIgnoreCase("buy_1_get_half_off")) {
-                            Long startingPoint = (cartModel.getOfferCount() * 2);
+                            Long startingPoint = cartModel.getStartingPoint() +  (cartModel.getOfferCount() * 2);
                             Long tempQuantity = cartModel.getQuantity() - startingPoint;
                             if (tempQuantity >= 3) {
                                 Long tempOffer = tempQuantity / 3;
@@ -102,7 +116,7 @@ public class BillImpl implements Bill{
                         CartModel cartModel= ClientImpl.CART_MODEL_MAP.get(cartInput[2]);
                         if(cartModel.getOffer() != null && cartModel.getOffer().equalsIgnoreCase("buy_2_get_1_free"))
                         {
-                            Long startingPoint= (cartModel.getOfferCount() *3);
+                            Long startingPoint= cartModel.getStartingPoint()+ (cartModel.getOfferCount() * 3);
                             Long tempQuantity = cartModel.getQuantity() -startingPoint;
                             if(tempQuantity >=  2){
                                 Long tempOffer=tempQuantity/2;
@@ -144,6 +158,10 @@ public class BillImpl implements Bill{
 
     }
 
+    /*
+      *    Item is added so cart and inventory are updated accordingly
+      *   In case an offer is added for the item discount is also updated
+     */
     public Boolean processItemAddition( String input) {
 
         String[] cartInput = input.split(SPACE_DELIMITER);

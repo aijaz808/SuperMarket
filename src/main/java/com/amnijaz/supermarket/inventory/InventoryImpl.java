@@ -13,6 +13,9 @@ import java.util.Map;
 
 public class InventoryImpl implements Inventory{
 
+    /*
+    * It stores the csv inventory file in a map
+    */
     @Override
     public Map<String, InventoryModel> getAmountAndQuantity(String filePath) throws FileNotFoundException {
         String commaDelimiter = ",";

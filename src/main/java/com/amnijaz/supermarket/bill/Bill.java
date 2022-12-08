@@ -7,5 +7,5 @@ import java.util.Map;
 public interface Bill {
 
 
-    public Boolean processCartInput(String input);
+    public void processCartInput(String input);
 }

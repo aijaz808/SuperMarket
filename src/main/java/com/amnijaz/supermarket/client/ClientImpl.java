@@ -24,6 +24,10 @@ public class ClientImpl implements Client{
 
     public static Map<String , InventoryModel> INVENTORY_MODEL_MAP=new HashMap<>();
 
+    /*
+      Customer gives file paths
+      Inventory map is initialised to maintain the count
+     */
     @Override
     public void getInventoryItemList()  throws FileNotFoundException{
 
@@ -47,6 +51,10 @@ public class ClientImpl implements Client{
         }
     }
 
+
+    /*
+      Commands are executed in the list for case of file mode
+     */
     private void processInputForFileMode(List<String> commands) {
 
         if (commands.get(0).equalsIgnoreCase("checkout")) {
@@ -66,6 +74,9 @@ public class ClientImpl implements Client{
         }
     }
 
+    /*
+      Commands are taken in case of interactive mode from the customer
+     */
     private void processInputForInteractiveMode() {
 
         Scanner firstInput = new Scanner(System.in);
@@ -94,6 +105,9 @@ public class ClientImpl implements Client{
     }
 
 
+    /*
+      Commands are read from file and stored in an arraylist
+     */
     private List<String> readCommandFile(String filePath) throws FileNotFoundException {
 
         String line= "";

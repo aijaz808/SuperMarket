@@ -1,3 +1,6 @@
+/**
+ * Starting point of Cart System
+ */
 package com.amnijaz.supermarket;
 
 import com.amnijaz.supermarket.client.Client;
