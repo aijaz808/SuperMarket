@@ -2,10 +2,8 @@ package com.amnijaz.supermarket;
 
 import com.amnijaz.supermarket.client.Client;
 import com.amnijaz.supermarket.client.ClientImpl;
-import com.amnijaz.supermarket.inventory.InventoryModel;
 
 import java.io.FileNotFoundException;
-import java.util.Map;
 
 public class StartApplication {
 
